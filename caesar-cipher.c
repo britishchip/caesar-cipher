@@ -24,9 +24,6 @@ char *encodeCipher(char *plaintext, char *ciphertext, int key, char *output){
             break;
         }
     }
-    //cant free the ptr befor returning, and cant free
-    //after returning because nothing runs after return
-    //beautiful skill issue
     return output;
 }
 
