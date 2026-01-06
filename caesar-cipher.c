@@ -4,8 +4,7 @@
 #include "ctype.h"
 
 
-char *encodeCipher(char *plaintext, char *ciphertext, int key){
-    char *output = malloc(strlen(plaintext));
+char *encodeCipher(char *plaintext, char *ciphertext, int key, char *output){
     
     // C is beautiful: an abomination dedicateed to holy C
     //good luck trying to figure out this eyesore
@@ -31,8 +30,7 @@ char *encodeCipher(char *plaintext, char *ciphertext, int key){
     return output;
 }
 
-char *decodeCipher(char *plaintext, char *ciphertext, int key){
-    char *output = malloc(strlen(plaintext));
+char *decodeCipher(char *plaintext, char *ciphertext, int key, char *output){
 
     // C is beautiful: an abomination dedicateed to holy C
     //good luck trying to figure out this eyesore
@@ -92,10 +90,11 @@ int main(int argc, char *argv[]){
         if (key > 25 || key < 0) {
             printf("Invalid key\n");
             return 1;
-        }    
-        char *result = encodeCipher(plaintext, cipher, key);
+        }
+        char *output = malloc(strlen(plaintext));    
+        char *result = encodeCipher(plaintext, cipher, key, output);
         printf("Your ciphertext: %s\n", result);
-
+        free(output);
     } else if (strcmp(arg2, "d") == 0) {
         printf("Enter the text to decode: ");
         fgets(plaintext, sizeof(plaintext), stdin);
@@ -110,14 +109,15 @@ int main(int argc, char *argv[]){
         if (key > 25 || key < 0) {
             printf("Invalid key\n");
             return 1;
-        }    
-        char *result = decodeCipher(plaintext, cipher, key);
+        } 
+        char *output =malloc(strlen(plaintext));   
+        char *result = decodeCipher(plaintext, cipher, key, output);
         printf("Decoded text: %s\n", result);
+        free(output);
     } else {
         printf("Bad argument\n");
         return 1;
     }
-    
     return 0;
     
 }
